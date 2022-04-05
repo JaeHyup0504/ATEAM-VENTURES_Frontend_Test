@@ -51,26 +51,16 @@ const Filter_div = styled.div`
 const Category_first = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 98px;
+  width: ${(props) => (props.selectMethod.length > 0 ? `115px` : `98px`)}; //105
   height: 32px;
-  background: #ffffff;
+  background: ${(props) =>
+    props.selectMethod.length > 0 ? `#2196f3` : `#ffffff`};
   border: 1px solid #939fa5;
   box-sizing: border-box;
   border-radius: 4px;
   cursor: pointer;
   &:hover {
     border: 1px solid #2196f3;
-  }
-
-  div.text {
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 12px;
-    margin-left: 12px;
-    display: flex;
-    align-items: center;
-    color: #323d45;
   }
 
   div.arrow_drop_down {
@@ -80,11 +70,23 @@ const Category_first = styled.div`
   }
 `;
 
+const MethodText = styled.div`
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  margin-left: 12px;
+  display: flex;
+  align-items: center;
+  color: ${(props) => (props.selectMethod.length > 0 ? `#ffffff` : `#323d45`)};
+`;
+
 const Category_second = styled.div`
   margin-left: 10px;
-  width: 76px;
+  width: ${(props) => (props.selectMaterial.length > 0 ? `85px` : `76px`)}; //85
   height: 32px;
-  background: #ffffff;
+  background: ${(props) =>
+    props.selectMaterial.length > 0 ? `#2196f3` : `#ffffff`};
   border: 1px solid #939fa5;
   box-sizing: border-box;
   cursor: pointer;
@@ -95,22 +97,23 @@ const Category_second = styled.div`
     border: 1px solid #2196f3;
   }
 
-  div.materialText {
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 12px;
-    margin-left: 12px;
-    display: flex;
-    align-items: center;
-    color: #323d45;
-  }
-
   div.arrow_drop_down {
     display: flex;
     align-items: center;
     margin-right: 12px;
   }
+`;
+
+const MaterialText = styled.div`
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  margin-left: 12px;
+  display: flex;
+  align-items: center;
+  color: ${(props) =>
+    props.selectMaterial.length > 0 ? `#ffffff` : `#323d45`};
 `;
 
 const RefreshDiv = styled.div`
@@ -172,45 +175,63 @@ const ToggleContainer = styled.div`
 `;
 
 const Filter = ({
-  isOn,
+  consulting,
   toggleHandler,
   methodModal,
-  setMethodModal,
-  toggleMethodModal,
   materialModal,
-  setMaterialModal,
+  toggleMethodModal,
   toggleMaterialModal,
+  selectMethod,
+  selectMaterial,
+  reset,
+  getCheckboxMethod,
+  getCheckboxMaterial,
 }) => {
   return (
     <Filter_div>
       <div className="category">
-        {methodModal === true ? <Method></Method> : null}
-        {materialModal === true ? <Material></Material> : null}
-        <Category_first onClick={toggleMethodModal}>
-          <div className="text">가공방식</div>
+        <Category_first onClick={toggleMethodModal} selectMethod={selectMethod}>
+          <MethodText selectMethod={selectMethod}>
+            가공방식 {selectMethod.length > 0 && `(${selectMethod.length})`}
+          </MethodText>
           <div className="arrow_drop_down">
             <img src={downArrow}></img>
           </div>
         </Category_first>
-        <Category_second onClick={toggleMaterialModal}>
-          <div className="materialText">재료</div>
+        {methodModal && <Method getCheckboxMethod={getCheckboxMethod}></Method>}
+        <Category_second
+          onClick={toggleMaterialModal}
+          selectMaterial={selectMaterial}
+        >
+          <MaterialText selectMaterial={selectMaterial}>
+            재료 {selectMaterial.length > 0 && `(${selectMaterial.length})`}
+          </MaterialText>
           <div className="arrow_drop_down">
             <img src={downArrow}></img>
           </div>
         </Category_second>
-        <RefreshDiv>
-          <div className="refresh_icon">
-            <img src={refresh}></img>
-          </div>
-          <div className="refresh">필터링 리셋</div>
-        </RefreshDiv>
+        {materialModal && (
+          <Material getCheckboxMaterial={getCheckboxMaterial}></Material>
+        )}
+        {selectMethod.length > 0 || selectMaterial.length > 0 ? (
+          <RefreshDiv onClick={reset}>
+            <div className="refresh_icon">
+              <img src={refresh}></img>
+            </div>
+            <div className="refresh">필터링 리셋</div>
+          </RefreshDiv>
+        ) : null}
       </div>
       <div className="toggle">
         <ToggleContainer onClick={toggleHandler}>
           <div
-            className={`toggle-container ${isOn ? 'toggle--checked' : ''}`}
+            className={`toggle-container ${
+              consulting ? 'toggle--checked' : ''
+            }`}
           />
-          <div className={`toggle-circle ${isOn ? 'toggle--checked' : ''}`} />
+          <div
+            className={`toggle-circle ${consulting ? 'toggle--checked' : ''}`}
+          />
         </ToggleContainer>
         <div className="toggle_title">상담 중인 요청만 보기</div>
       </div>

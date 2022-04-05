@@ -5,16 +5,14 @@ const MethodDiv = styled.div`
   display: flex;
   flex-direction: column;
   width: 98px;
-  height: 80px;
+  height: 82px;
   background: #ffffff;
   border: 1px solid #939fa5;
   box-sizing: border-box;
   border-radius: 4px;
   position: absolute;
   margin-top: 40px;
-  @media screen and (max-width: 767px) {
-    z-index: 3;
-  }
+  z-index: 3;
 `;
 
 const MethodList = styled.div`
@@ -23,7 +21,7 @@ const MethodList = styled.div`
   position: relative;
   top: 16%;
   left: 14%;
-  margin: 2px 0;
+  margin: 3px 0;
 
   .method_title {
     margin-left: 10px;
@@ -34,21 +32,32 @@ const MethodList = styled.div`
     line-height: 20px;
     display: flex;
     color: #323d45;
-    margin-top: 2px;
+    margin-top: 1px;
   }
 `;
 
-const Method = () => {
+const Method = ({ getCheckboxMethod }) => {
+  const methodList = ['밀링', '선반'];
   return (
     <MethodDiv>
-      <MethodList>
-        <input type="checkbox" value="밀링" id="1"></input>
-        <span className="method_title">밀링</span>
-      </MethodList>
-      <MethodList>
-        <input type="checkbox" value="선반"></input>
-        <span className="method_title">선반</span>
-      </MethodList>
+      {methodList.map((method, idx) => (
+        <MethodList
+          key={idx}
+          onClick={(e) => {
+            getCheckboxMethod(e);
+          }}
+        >
+          <input
+            type="checkbox"
+            name={method}
+            value={method}
+            id={method}
+          ></input>
+          <label className="method_title" for={method}>
+            {method}
+          </label>
+        </MethodList>
+      ))}
     </MethodDiv>
   );
 };

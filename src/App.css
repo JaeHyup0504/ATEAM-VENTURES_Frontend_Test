@@ -12,15 +12,33 @@
   display: none; /* Chrome , Safari , Opera */
 }
 
+body {
+  height: 100%;
+  overflow: scroll;
+}
+
 .header {
   width: 100%;
   height: 70px;
   background: #1565c0;
-  position: relative;
+  position: fixed;
+  z-index: 10;
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.12), 0px 2px 2px rgba(0, 0, 0, 0.24);
 }
 
 .section {
+  padding-top: 85px;
   width: 100%;
-  height: 100%;
+}
+
+@media all and (max-width: 1130px) {
+  .section {
+    padding-top: 80px;
+  }
+}
+
+@media all and (max-width: 767px) {
+  .section {
+    padding-top: 75px;
+  }
 }

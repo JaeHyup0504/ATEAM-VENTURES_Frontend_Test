@@ -127,9 +127,9 @@ const Header = () => {
           <MenuModal closeMenuModal={closeMenuModal}></MenuModal>
         ) : null}
         <DrawerMenu onClick={openMenuModal}>
-          <span class="line1"></span>
-          <span class="line2"></span>
-          <span class="line3"></span>
+          <span className="line1"></span>
+          <span className="line2"></span>
+          <span className="line3"></span>
         </DrawerMenu>
         <Logo>
           <img src={logo}></img>

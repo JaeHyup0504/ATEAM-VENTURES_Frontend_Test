@@ -1,18 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
 
 const ListDiv = styled.div`
   max-width: 1130px;
-  height: 356px;
-  margin: 32px auto;
+  height: 100%;
+  margin: 32px auto 60px auto;
 
   @media screen and (max-width: 1130px) {
     width: 94%;
+    margin: 32px auto 55px auto;
   }
 
   @media screen and (max-width: 767px) {
     width: 90%;
+    margin: 32px auto 50px auto;
   }
 
   ul.grid {
@@ -37,6 +38,7 @@ const ListDiv = styled.div`
       box-sizing: border-box;
       border-radius: 4px;
       background: #ffffff;
+      cursor: pointer;
       &:hover {
         box-shadow: 0 0 0 2px #2196f3 inset;
       }
@@ -67,6 +69,7 @@ const ListHeader = styled.div`
   div.list_title {
     display: flex;
     justify-content: space-between;
+    position: relative;
     div.title {
       font-family: 'Noto Sans KR Bold';
       font-style: normal;
@@ -80,13 +83,14 @@ const ListHeader = styled.div`
       border: 1px solid #ffa000;
       box-sizing: border-box;
       border-radius: 12px;
-      line-height: 24px;
       text-align: center;
-      position: relative;
-      bottom: 4px;
+      position: absolute;
+      right: 0;
+      bottom: 0;
       span {
         color: #ffa000;
         font-size: 12px;
+        line-height: 24px;
       }
     }
   }
@@ -114,7 +118,7 @@ const ListHeader = styled.div`
 const ListBody = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 32px;
+  margin-top: 35px;
 `;
 
 const ListDetail = styled.div`
@@ -178,51 +182,81 @@ const ListBtn = styled.div`
   }
 `;
 
-const List = () => {
+const EmptyDiv = styled.div`
+  max-width: 1130px;
+  height: 100px;
+  margin: 32px auto;
+  border: 1px solid #c2c2c2;
+  box-sizing: border-box;
+  border-radius: 4px;
+  text-align: center;
+  span {
+    font-family: 'Noto Sans KR Regular';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 100px;
+    color: #939fa5;
+  }
+`;
+
+const List = ({ list }) => {
   return (
     <ListDiv>
-      <ul className="grid">
-        <li>
-          <ListDetailDiv>
-            <ListHeader>
-              <div className="list_title">
-                <div className="title">자동차 시제품 제작</div>
-                <div className="title_status">
-                  <span>상담중</span>
-                </div>
-              </div>
-              <div className="client">A 고객사</div>
-              <div className="due">2020.12.14까지 납기</div>
-            </ListHeader>
-            <ListBody>
-              <ListDetail>
-                <div className="content_title">도면개수</div>
-                <div className="content_value">2개</div>
-              </ListDetail>
-              <ListDetail>
-                <div className="content_title">총 수량</div>
-                <div className="content_value">100개</div>
-              </ListDetail>
-              <ListDetail>
-                <div className="content_title">가공방식</div>
-                <div className="content_value">밀링, 선반</div>
-              </ListDetail>
-              <ListDetail>
-                <div className="content_title">재료</div>
-                <div className="content_value">알루미늄</div>
-              </ListDetail>
-            </ListBody>
-            <ListBtn>
-              <div className="request_btn">
-                <span>요청 내역 보기</span>
-              </div>
-              <div className="chat_btn">
-                <span>채팅하기</span>
-              </div>
-            </ListBtn>
-          </ListDetailDiv>
-        </li>
-      </ul>
+      {list.length === 0 ? (
+        <EmptyDiv>
+          <span>조건에 맞는 견적 요청이 없습니다.</span>
+        </EmptyDiv>
+      ) : (
+        <ul className="grid">
+          {list.map((el, idx) => (
+            <li key={idx}>
+              <ListDetailDiv>
+                <ListHeader>
+                  <div className="list_title">
+                    <div className="title">{el.title}</div>
+                    {el.status === '상담중' && (
+                      <div className="title_status">
+                        <span>상담중</span>
+                      </div>
+                    )}
+                  </div>
+                  <div className="client">{el.client}</div>
+                  <div className="due">{el.due}까지 납기</div>
+                </ListHeader>
+                <ListBody>
+                  <ListDetail>
+                    <div className="content_title">도면개수</div>
+                    <div className="content_value">{el.count}개</div>
+                  </ListDetail>
+                  <ListDetail>
+                    <div className="content_title">총 수량</div>
+                    <div className="content_value">{el.amount}개</div>
+                  </ListDetail>
+                  <ListDetail>
+                    <div className="content_title">가공방식</div>
+                    <div className="content_value">{el.method.join(', ')}</div>
+                  </ListDetail>
+                  <ListDetail>
+                    <div className="content_title">재료</div>
+                    <div className="content_value">
+                      {el.material.join(', ')}
+                    </div>
+                  </ListDetail>
+                </ListBody>
+                <ListBtn>
+                  <div className="request_btn">
+                    <span>요청 내역 보기</span>
+                  </div>
+                  <div className="chat_btn">
+                    <span>채팅하기</span>
+                  </div>
+                </ListBtn>
+              </ListDetailDiv>
+            </li>
+          ))}
+        </ul>
+      )}
     </ListDiv>
   );
 };

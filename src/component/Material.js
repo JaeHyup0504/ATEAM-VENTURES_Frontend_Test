@@ -13,9 +13,7 @@ const MaterialDiv = styled.div`
   position: absolute;
   margin-top: 40px;
   margin-left: 108px;
-  @media screen and (max-width: 767px) {
-    z-index: 3;
-  }
+  z-index: 3;
 `;
 
 const MaterialList = styled.div`
@@ -23,8 +21,8 @@ const MaterialList = styled.div`
   align-items: center;
   position: relative;
   left: 10%;
-  top: 10%;
-  margin: 2px 0;
+  top: 7%;
+  margin: 3px 0;
 
   .method_title {
     margin-left: 10px;
@@ -39,29 +37,23 @@ const MaterialList = styled.div`
   }
 `;
 
-const Material = () => {
+const Material = ({ getCheckboxMaterial }) => {
+  const materialList = ['알루미늄', '탄소강', '구리', '합금강', '강철'];
   return (
     <MaterialDiv>
-      <MaterialList>
-        <input type="checkbox" value="알루미늄"></input>
-        <span className="method_title">알루미늄</span>
-      </MaterialList>
-      <MaterialList>
-        <input type="checkbox" value="탄소강"></input>
-        <span className="method_title">탄소강</span>
-      </MaterialList>
-      <MaterialList>
-        <input type="checkbox" value="구리"></input>
-        <span className="method_title">구리</span>
-      </MaterialList>
-      <MaterialList>
-        <input type="checkbox" value="합금강"></input>
-        <span className="method_title">합금강</span>
-      </MaterialList>
-      <MaterialList>
-        <input type="checkbox" value="강철"></input>
-        <span className="method_title">강철</span>
-      </MaterialList>
+      {materialList.map((material, idx) => (
+        <MaterialList
+          key={idx}
+          onClick={(e) => {
+            getCheckboxMaterial(e);
+          }}
+        >
+          <input type="checkbox" value={material} id={material}></input>
+          <label className="method_title" for={material}>
+            {material}
+          </label>
+        </MaterialList>
+      ))}
     </MaterialDiv>
   );
 };
