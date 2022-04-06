@@ -5,7 +5,7 @@ const MethodDiv = styled.div`
   display: flex;
   flex-direction: column;
   width: 98px;
-  height: 82px;
+  height: 79px;
   background: #ffffff;
   border: 1px solid #939fa5;
   box-sizing: border-box;
@@ -19,7 +19,7 @@ const MethodList = styled.div`
   display: flex;
   align-items: center;
   position: relative;
-  top: 16%;
+  top: 15%;
   left: 14%;
   margin: 3px 0;
 
@@ -36,24 +36,21 @@ const MethodList = styled.div`
   }
 `;
 
-const Method = ({ getCheckboxMethod }) => {
+const Method = ({ getCheckboxMethod, isChecked }) => {
   const methodList = ['밀링', '선반'];
   return (
     <MethodDiv>
       {methodList.map((method, idx) => (
-        <MethodList
-          key={idx}
-          onClick={(e) => {
-            getCheckboxMethod(e);
-          }}
-        >
+        <MethodList key={idx}>
           <input
             type="checkbox"
             name={method}
             value={method}
             id={method}
+            onChange={getCheckboxMethod}
+            checked={isChecked[idx]}
           ></input>
-          <label className="method_title" for={method}>
+          <label className="method_title" htmlFor={method}>
             {method}
           </label>
         </MethodList>

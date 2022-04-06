@@ -117,7 +117,7 @@ const Header = () => {
     setMenuModal(!menuModal);
   };
   const closeMenuModal = () => {
-    setMenuModal(!menuModal);
+    setMenuModal(false);
   };
 
   return (

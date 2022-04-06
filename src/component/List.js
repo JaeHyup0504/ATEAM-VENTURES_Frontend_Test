@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const ListDiv = styled.div`
@@ -200,9 +200,14 @@ const EmptyDiv = styled.div`
   }
 `;
 
-const List = ({ list }) => {
+const List = ({ list, closeMethodModal, closeMaterialModal }) => {
   return (
-    <ListDiv>
+    <ListDiv
+      onClick={() => {
+        closeMethodModal();
+        closeMaterialModal();
+      }}
+    >
       {list.length === 0 ? (
         <EmptyDiv>
           <span>조건에 맞는 견적 요청이 없습니다.</span>

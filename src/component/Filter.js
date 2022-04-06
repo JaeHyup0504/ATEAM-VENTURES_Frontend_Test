@@ -175,17 +175,18 @@ const ToggleContainer = styled.div`
 `;
 
 const Filter = ({
-  consulting,
-  toggleHandler,
-  methodModal,
-  materialModal,
-  toggleMethodModal,
-  toggleMaterialModal,
   selectMethod,
   selectMaterial,
+  consulting,
+  toggleHandler,
+  toggleMethodModal,
+  toggleMaterialModal,
+  methodModal,
+  materialModal,
   reset,
   getCheckboxMethod,
   getCheckboxMaterial,
+  isChecked,
 }) => {
   return (
     <Filter_div>
@@ -198,7 +199,12 @@ const Filter = ({
             <img src={downArrow}></img>
           </div>
         </Category_first>
-        {methodModal && <Method getCheckboxMethod={getCheckboxMethod}></Method>}
+        {methodModal && (
+          <Method
+            getCheckboxMethod={getCheckboxMethod}
+            isChecked={isChecked}
+          ></Method>
+        )}
         <Category_second
           onClick={toggleMaterialModal}
           selectMaterial={selectMaterial}

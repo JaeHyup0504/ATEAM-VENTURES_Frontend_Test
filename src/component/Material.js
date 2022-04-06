@@ -5,7 +5,7 @@ const MaterialDiv = styled.div`
   display: flex;
   flex-direction: column;
   width: 130px;
-  height: 164px;
+  height: 185px;
   background: #ffffff;
   border: 1px solid #939fa5;
   box-sizing: border-box;
@@ -21,7 +21,7 @@ const MaterialList = styled.div`
   align-items: center;
   position: relative;
   left: 10%;
-  top: 7%;
+  top: 6%;
   margin: 3px 0;
 
   .method_title {
@@ -31,25 +31,27 @@ const MaterialList = styled.div`
     font-weight: 500;
     font-size: 14px;
     line-height: 20px;
-    margin-top: 2px;
+    margin-top: 1px;
     display: flex;
     color: #323d45;
   }
 `;
 
 const Material = ({ getCheckboxMaterial }) => {
-  const materialList = ['알루미늄', '탄소강', '구리', '합금강', '강철'];
+  const materialList = [
+    '알루미늄',
+    '탄소강',
+    '구리',
+    '합금강',
+    '강철',
+    '스테인리스강',
+  ];
   return (
     <MaterialDiv>
       {materialList.map((material, idx) => (
-        <MaterialList
-          key={idx}
-          onClick={(e) => {
-            getCheckboxMaterial(e);
-          }}
-        >
+        <MaterialList key={idx} onChange={getCheckboxMaterial}>
           <input type="checkbox" value={material} id={material}></input>
-          <label className="method_title" for={material}>
+          <label className="method_title" htmlFor={material}>
             {material}
           </label>
         </MaterialList>

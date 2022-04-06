@@ -4,20 +4,19 @@ import modalLogo from '../icon/modalLogo.png';
 import modalFactory from '../icon/modalFactory.png';
 
 const MenuDiv = styled.div`
+  width: 100%;
+  height: 100vh;
   position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.5);
   z-index: 100;
 `;
 const Menu = styled.div`
   width: 80%;
   height: 100vh;
+  top: 0;
+  left: 0;
+  position: fixed;
   background: #ffffff;
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.12), 0px 2px 2px rgba(0, 0, 0, 0.24);
-
   div.modal_title {
     position: relative;
     height: 70px;
@@ -58,24 +57,34 @@ const Menu = styled.div`
     }
   }
 `;
+
+const MenuBack = styled.div`
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+`;
+
 const MenuModal = ({ closeMenuModal }) => {
   return (
-    <MenuDiv onClick={closeMenuModal}>
-      <Menu>
-        <div className="modal_title">
-          <img src={modalLogo}></img>
-        </div>
-        <ul className="modal_list">
-          <li className="list">
-            <div className="list_img">
-              <img src={modalFactory}></img>
-            </div>
-            <div>파트너정밀가공</div>
-          </li>
-          <li className="list">로그아웃</li>
-        </ul>
-      </Menu>
-    </MenuDiv>
+    <>
+      <MenuDiv>
+        <MenuBack onClick={closeMenuModal}></MenuBack>
+        <Menu>
+          <div className="modal_title">
+            <img src={modalLogo}></img>
+          </div>
+          <ul className="modal_list">
+            <li className="list">
+              <div className="list_img">
+                <img src={modalFactory}></img>
+              </div>
+              <div>파트너정밀가공</div>
+            </li>
+            <li className="list">로그아웃</li>
+          </ul>
+        </Menu>
+      </MenuDiv>
+    </>
   );
 };
 
