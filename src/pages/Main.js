@@ -11,7 +11,6 @@ const Main = () => {
   const [consulting, setConsulting] = useState(false);
   const [methodModal, setMethodModal] = useState(false);
   const [materialModal, setMaterialModal] = useState(false);
-  const [isChecked, setIsChecked] = useState(false);
 
   // 리스트 요청 함수
   const listData = () => {
@@ -134,10 +133,8 @@ const Main = () => {
   const getCheckboxMethod = (e) => {
     if (e.target.checked) {
       setSelectMethod([...selectMethod, e.target.value]);
-      setIsChecked(true);
     } else {
       setSelectMethod(selectMethod.filter((el) => el !== e.target.value));
-      setIsChecked(false);
     }
   };
 
@@ -173,7 +170,6 @@ const Main = () => {
         reset={reset}
         getCheckboxMethod={getCheckboxMethod}
         getCheckboxMaterial={getCheckboxMaterial}
-        isChecked={isChecked}
       ></Filter>
       <List
         list={list}

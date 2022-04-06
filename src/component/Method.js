@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const MethodDiv = styled.div`
   display: flex;
   flex-direction: column;
   width: 98px;
-  height: 79px;
+  height: 83px;
   background: #ffffff;
   border: 1px solid #939fa5;
   box-sizing: border-box;
@@ -19,10 +19,9 @@ const MethodList = styled.div`
   display: flex;
   align-items: center;
   position: relative;
-  top: 15%;
-  left: 14%;
-  margin: 3px 0;
-
+  top: 14%;
+  left: 12%;
+  margin-top: 6px;
   .method_title {
     margin-left: 10px;
     font-family: 'Noto Sans KR Medium';
@@ -36,7 +35,7 @@ const MethodList = styled.div`
   }
 `;
 
-const Method = ({ getCheckboxMethod, isChecked }) => {
+const Method = ({ getCheckboxMethod, selectMethod }) => {
   const methodList = ['밀링', '선반'];
   return (
     <MethodDiv>
@@ -48,7 +47,7 @@ const Method = ({ getCheckboxMethod, isChecked }) => {
             value={method}
             id={method}
             onChange={getCheckboxMethod}
-            checked={isChecked[idx]}
+            checked={selectMethod.includes(method)}
           ></input>
           <label className="method_title" htmlFor={method}>
             {method}

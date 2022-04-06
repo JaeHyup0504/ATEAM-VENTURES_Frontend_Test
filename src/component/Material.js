@@ -5,7 +5,7 @@ const MaterialDiv = styled.div`
   display: flex;
   flex-direction: column;
   width: 130px;
-  height: 185px;
+  height: 190px;
   background: #ffffff;
   border: 1px solid #939fa5;
   box-sizing: border-box;
@@ -20,9 +20,9 @@ const MaterialList = styled.div`
   display: flex;
   align-items: center;
   position: relative;
-  left: 10%;
   top: 6%;
-  margin: 3px 0;
+  left: 11%;
+  margin-top: 6px;
 
   .method_title {
     margin-left: 10px;
@@ -37,7 +37,7 @@ const MaterialList = styled.div`
   }
 `;
 
-const Material = ({ getCheckboxMaterial }) => {
+const Material = ({ getCheckboxMaterial, selectMaterial }) => {
   const materialList = [
     '알루미늄',
     '탄소강',
@@ -49,8 +49,14 @@ const Material = ({ getCheckboxMaterial }) => {
   return (
     <MaterialDiv>
       {materialList.map((material, idx) => (
-        <MaterialList key={idx} onChange={getCheckboxMaterial}>
-          <input type="checkbox" value={material} id={material}></input>
+        <MaterialList key={idx}>
+          <input
+            type="checkbox"
+            value={material}
+            id={material}
+            onChange={getCheckboxMaterial}
+            checked={selectMaterial.includes(material)}
+          ></input>
           <label className="method_title" htmlFor={material}>
             {material}
           </label>

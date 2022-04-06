@@ -49,7 +49,6 @@ const ListDiv = styled.div`
 
       @media screen and (max-width: 767px) {
         width: 100%;
-        height: 344px;
       }
     }
   }
@@ -110,7 +109,7 @@ const ListHeader = styled.div`
     font-weight: 400;
     font-size: 14px;
     color: #939fa5;
-    margin-top: 28px;
+    margin-top: 34px;
     margin-bottom: 17px;
   }
 `;

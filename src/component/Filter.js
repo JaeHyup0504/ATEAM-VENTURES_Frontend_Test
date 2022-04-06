@@ -203,6 +203,7 @@ const Filter = ({
           <Method
             getCheckboxMethod={getCheckboxMethod}
             isChecked={isChecked}
+            selectMethod={selectMethod}
           ></Method>
         )}
         <Category_second
@@ -217,7 +218,10 @@ const Filter = ({
           </div>
         </Category_second>
         {materialModal && (
-          <Material getCheckboxMaterial={getCheckboxMaterial}></Material>
+          <Material
+            getCheckboxMaterial={getCheckboxMaterial}
+            selectMaterial={selectMaterial}
+          ></Material>
         )}
         {selectMethod.length > 0 || selectMaterial.length > 0 ? (
           <RefreshDiv onClick={reset}>
